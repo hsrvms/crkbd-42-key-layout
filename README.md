@@ -8,6 +8,7 @@ The configuration preserves the existing 36-key Miryoku arrangement:
 - VI navigation
 - Miryoku home-row mods and layers
 - Six previously disabled outer positions enabled as fixed keys
+- A gaming layer toggled by the unused outer-right-bottom key
 
 Outer keys:
 
@@ -15,10 +16,10 @@ Outer keys:
 Left                         Right
 TAB   [Q W E R T]       [Y U I O P]   \\
 ESC   [A S D F G]       [H J K L ;]   '
-LSHFT [Z X C V B]       [N M , . /]   RSHFT
+LSHFT [Z X C V B]       [N M , . /]   GAME
 ```
 
-The added keys are fixed on every Miryoku layer. `KC_BSLS` produces backslash; with Shift it produces pipe.
+The added keys are fixed on every Miryoku layer. `KC_BSLS` produces backslash; with Shift it produces pipe. The outer-right-bottom key toggles the gaming layer. Gaming keeps the same QWERTY arrangement and thumb/layer keys, but uses ordinary A/S/D/F and J/K/L/; keys instead of home-row mods. The OLED displays the highest active layer and a separate gaming-mode status (`Game: ON/OFF`).
 
 ## Build
 
@@ -45,9 +46,9 @@ qmk compile -kb crkbd/rev1 -km miryoku -e CONVERT_TO=elite_pi
 
 For an RP2040 controller whose QMK converter is not named `elite_pi`, change only the `CONVERT_TO` value after confirming the controller's QMK converter name.
 
-Do not flash until the generated firmware has been tested and the exact controller/bootloader is confirmed. Corne V3 uses the `rev1` hardware definition; Corne V4 uses a different target.
+Do not flash until the generated firmware has been tested and the exact controller/bootloader is confirmed. Corne V3 uses the `rev1` hardware definition; Corne V4 uses a different target. Flash this same UF2 to both halves, one half at a time, with the halves disconnected from each other while flashing.
 
 Left                         Right
 TAB   [Q W E R T]       [Y U I O P]   Backslash
 ESC   [A S D F G]       [H J K L ;]   '
-Shift [Z X C V B]       [N M , . /]   Shift
+Shift [Z X C V B]       [N M , . /]   Game

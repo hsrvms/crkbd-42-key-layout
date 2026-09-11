@@ -12,10 +12,10 @@ if [[ ! -d "${QMK_FIRMWARE}/keyboards/crkbd" ]]; then
 fi
 
 mkdir -p "${KEYMAP_DEST}"
-cp -a "${ROOT}/keyboards/crkbd/rev1/keymaps/miryoku/." "${KEYMAP_DEST}/"
+cp -r "${ROOT}/keyboards/crkbd/rev1/keymaps/miryoku/." "${KEYMAP_DEST}/"
 mkdir -p "${QMK_FIRMWARE}/users"
 rm -rf "${QMK_FIRMWARE}/users/manna-harbour_miryoku"
-cp -a "${ROOT}/users/manna-harbour_miryoku" "${QMK_FIRMWARE}/users/"
+cp -r "${ROOT}/users/manna-harbour_miryoku" "${QMK_FIRMWARE}/users/"
 
 cd "${QMK_FIRMWARE}"
 qmk compile -kb crkbd/rev1 -km miryoku -e CONVERT_TO=elite_pi

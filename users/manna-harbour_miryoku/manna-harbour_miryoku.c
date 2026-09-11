@@ -46,7 +46,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define MIRYOKU_X(LAYER, STRING) [U_##LAYER] = U_MACRO_VA_ARGS(MIRYOKU_LAYERMAPPING_##LAYER, MIRYOKU_LAYER_##LAYER),
 MIRYOKU_LAYER_LIST
 #undef MIRYOKU_X
+    [U_GAME] = U_MACRO_VA_ARGS(MIRYOKU_MAPPING, MIRYOKU_GAMING_LAYER),
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (keycode == GAME_TOGGLE && record->event.pressed) {
+        layer_invert(U_GAME);
+        return false;
+    }
+    return true;
+}
+
+#ifdef OLED_ENABLE
+bool oled_task_user(void) {
+    oled_clear();
+    oled_set_cursor(0, 0);
+    oled_write_ln_P(PSTR("OLED TEST"), false);
+    oled_write_ln_P(PSTR("CRKBD"), false);
+    return false;
+}
+#endif
 
 
 // shift functions

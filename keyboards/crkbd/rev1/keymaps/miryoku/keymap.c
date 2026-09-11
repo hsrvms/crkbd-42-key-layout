@@ -46,7 +46,50 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define MIRYOKU_X(LAYER, STRING) [U_##LAYER] = U_MACRO_VA_ARGS(MIRYOKU_LAYERMAPPING_##LAYER, MIRYOKU_LAYER_##LAYER),
 MIRYOKU_LAYER_LIST
 #undef MIRYOKU_X
+    [U_GAME] = U_MACRO_VA_ARGS(LAYOUT_miryoku_game, MIRYOKU_GAMING_LAYER),
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (keycode == GAME_TOGGLE && record->event.pressed) {
+        layer_invert(U_GAME);
+        return false;
+    }
+    return true;
+}
+
+#ifdef OLED_ENABLE
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    return OLED_ROTATION_270;
+}
+
+bool oled_task_user(void) {
+    if (!is_keyboard_master()) {
+        oled_off();
+        return false;
+    }
+
+    oled_clear();
+    oled_set_cursor(0, 0);
+    oled_write_P(PSTR("Layer"), false);
+    switch (get_highest_layer(layer_state)) {
+        case U_BASE:   oled_write_ln_P(PSTR("BASE"), false); break;
+        case U_EXTRA:  oled_write_ln_P(PSTR("EXTRA"), false); break;
+        case U_TAP:    oled_write_ln_P(PSTR("TAP"), false); break;
+        case U_BUTTON: oled_write_ln_P(PSTR("BUTTON"), false); break;
+        case U_NAV:    oled_write_ln_P(PSTR("NAV"), false); break;
+        case U_MOUSE:  oled_write_ln_P(PSTR("MOUSE"), false); break;
+        case U_MEDIA:  oled_write_ln_P(PSTR("MEDIA"), false); break;
+        case U_NUM:    oled_write_ln_P(PSTR("NUM"), false); break;
+        case U_SYM:    oled_write_ln_P(PSTR("SYM"), false); break;
+        case U_FUN:    oled_write_ln_P(PSTR("FUN"), false); break;
+        case U_GAME:   oled_write_ln_P(PSTR("GAME"), false); break;
+        default:       oled_write_ln_P(PSTR("UNKNOWN"), false); break;
+    }
+    oled_write_P(PSTR("Game: "), false);
+    oled_write_ln_P(IS_LAYER_ON(U_GAME) ? PSTR("ON") : PSTR("OFF"), false);
+    return false;
+}
+#endif
 
 
 // shift functions

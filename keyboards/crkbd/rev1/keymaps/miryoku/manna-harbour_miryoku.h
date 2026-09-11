@@ -12,6 +12,7 @@ enum miryoku_layers {
 #define MIRYOKU_X(LAYER, STRING) U_##LAYER,
 MIRYOKU_LAYER_LIST
 #undef MIRYOKU_X
+    U_GAME,
 };
 
 #define U_MACRO_VA_ARGS(macro, ...) macro(__VA_ARGS__)
@@ -23,6 +24,13 @@ MIRYOKU_LAYER_LIST
 #define U_NP KC_NO // key is not present
 #define U_NA KC_NO // present but not available for use
 #define U_NU KC_NO // available but not used
+
+// QWERTY base layout with home-row mods removed for gaming.
+#define MIRYOKU_GAMING_LAYER \
+KC_Q,              KC_W,              KC_E,              KC_R,              KC_T,              KC_Y,              KC_U,              KC_I,              KC_O,              KC_P,              \
+KC_A,              KC_S,              KC_D,              KC_F,              KC_G,              KC_H,              KC_J,              KC_K,              KC_L,              KC_QUOT,           \
+LT(U_BUTTON,KC_Z), ALGR_T(KC_X),      KC_C,              KC_V,              KC_B,              KC_N,              KC_M,              KC_COMM,           ALGR_T(KC_DOT),    LT(U_BUTTON,KC_SLSH),\
+U_NP,              U_NP,              LT(U_MEDIA,KC_ESC),LT(U_NAV,KC_SPC),  LT(U_MOUSE,KC_TAB),LT(U_SYM,KC_ENT),  LT(U_NUM,KC_BSPC), LT(U_FUN,KC_DEL),  U_NP,              U_NP
 
 #if defined (MIRYOKU_CLIPBOARD_FUN)
   #define U_RDO KC_AGIN
