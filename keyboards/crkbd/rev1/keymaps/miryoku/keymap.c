@@ -46,7 +46,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define MIRYOKU_X(LAYER, STRING) [U_##LAYER] = U_MACRO_VA_ARGS(MIRYOKU_LAYERMAPPING_##LAYER, MIRYOKU_LAYER_##LAYER),
 MIRYOKU_LAYER_LIST
 #undef MIRYOKU_X
-    [U_GAME] = U_MACRO_VA_ARGS(LAYOUT_miryoku_game, MIRYOKU_GAMING_LAYER),
+[U_GAME] = U_MACRO_VA_ARGS(LAYOUT_miryoku_game, MIRYOKU_GAMING_LAYER),
+[U_GAME_FN] = U_MACRO_VA_ARGS(LAYOUT_miryoku_game_fn, MIRYOKU_GAME_FN_LAYER),
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -83,6 +84,7 @@ bool oled_task_user(void) {
         case U_SYM:    oled_write_ln_P(PSTR("SYM"), false); break;
         case U_FUN:    oled_write_ln_P(PSTR("FUN"), false); break;
         case U_GAME:   oled_write_ln_P(PSTR("GAME"), false); break;
+        case U_GAME_FN: oled_write_ln_P(PSTR("GAME FN"), false); break;
         default:       oled_write_ln_P(PSTR("UNKNOWN"), false); break;
     }
     oled_write_P(PSTR("Game: "), false);
